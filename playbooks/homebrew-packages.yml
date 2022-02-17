@@ -4,14 +4,14 @@
   vars:
     homebrew_packages:
     - git
-    #- docker
-    #- git-lfs
-    #- node
-    #- transmit
-    #- vagrant
-    #- docker-compose
-    #- kubernetes-cli
-    #- jq
+    - docker
+    - git-lfs
+    - node
+    - transmit
+    - vagrant
+    - docker-compose
+    - kubernetes-cli
+    - jq
 
     homebrew_taps:
     - homebrew/core
@@ -19,22 +19,22 @@
 
     homebrew_cask_appdir: /Applications
     homebrew_cask_packages:
-    #- postman
-    #- spotify
-    #- visual-studio-code
-    #- google-chat
-    #- notion
-    #- asana
+    - postman
+    - spotify
+    - visual-studio-code
+    - google-chat
+    - notion
+    - asana
     - dbeaver-community
-    #- slack
-    #- miro
-    #- discord
-    #- tunnelblick
-    #- istat-menus
-    #- vmware-fusion
-    #- iterm2
-    #- github
-    #- firefox
+    - slack
+    - miro
+    - discord
+    - tunnelblick
+    - istat-menus
+    - vmware-fusion
+    - iterm2
+    - github
+    - firefox
 
     install_homebrew_if_missing: true
     upgrade_homebrew_packages: true

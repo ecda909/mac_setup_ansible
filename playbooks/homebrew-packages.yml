@@ -35,6 +35,7 @@
     - iterm2
     - github
     - firefox
+    - drawio
 
     install_homebrew_if_missing: true
     upgrade_homebrew_packages: true

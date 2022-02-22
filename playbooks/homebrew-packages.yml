@@ -12,6 +12,15 @@
     - kubernetes-cli
     - jq
     - awscli
+    - wget
+    - yarn
+    - libyaml
+    - tree
+    - nvm
+    - terraform
+    - certbot
+    - kubernetes-helm
+    - openssh
 
     homebrew_taps:
     - homebrew/core

@@ -64,6 +64,7 @@
       when: >
             not homebrew_check.stat.exists and
             not install_homebrew_if_missing
+
     - name: Installing Homebrew
       shell: |
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -79,8 +80,6 @@
   tasks:
     - name: Updating Homebrew
       shell: brew update
-      #homebrew:
-      #  update_homebrew: true
       when: homebrew_check.stat.exists
 
     - name: Installing Homebrew Packages

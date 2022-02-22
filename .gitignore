@@ -1,2 +1,5 @@
+# This will just be used as a tmp diretory/trash bin locally
 /tmp
+
+# We don't want to include the get-pip file
 get-pip.py

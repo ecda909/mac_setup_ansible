@@ -1,10 +1,9 @@
 - hosts: local
   name: Install OSX Homebrew Packages
-  become: false #running Brew as root is not supported any longer, so this will always be false...
+  become: false
   vars:
     homebrew_packages:
     - git
-    - docker
     - git-lfs
     - node
     - transmit
@@ -12,6 +11,7 @@
     - docker-compose
     - kubernetes-cli
     - jq
+    - awscli
 
     homebrew_taps:
     - homebrew/core
@@ -19,6 +19,7 @@
 
     homebrew_cask_appdir: /Applications
     homebrew_cask_packages:
+    - docker
     - postman
     - spotify
     - visual-studio-code
@@ -36,6 +37,7 @@
     - github
     - firefox
     - drawio
+    - google-chrome
 
     install_homebrew_if_missing: true
     upgrade_homebrew_packages: true
@@ -54,7 +56,12 @@
             not homebrew_check.stat.exists and
             not install_homebrew_if_missing
     - name: Installing Homebrew
-      command: '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
+      shell: |
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/edermazariegos/.zprofile
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+        brew doctor
+        git -C $(brew --repo homebrew/core) checkout master
       when: >
             not homebrew_check.stat.exists and
             install_homebrew_if_missing
@@ -62,8 +69,9 @@
   # These are the tasks we will perform for the installation 
   tasks:
     - name: Updating Homebrew
-      homebrew:
-        update_homebrew: true
+      shell: brew update
+      #homebrew:
+      #  update_homebrew: true
       when: homebrew_check.stat.exists
 
     - name: Installing Homebrew Packages
@@ -80,4 +88,3 @@
         state: "present"
       with_items: '{{ homebrew_cask_packages }}'
       when: homebrew_check.stat.exists
-

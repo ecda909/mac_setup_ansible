@@ -6,8 +6,6 @@
     - git
     - git-lfs
     - node
-    - transmit
-    - vagrant
     - docker-compose
     - kubernetes-cli
     - jq

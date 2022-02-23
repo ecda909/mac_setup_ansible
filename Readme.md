@@ -6,7 +6,10 @@ This is a simple Ansible playbook that installs applications to Apple M1 Macs vi
 ## Configuration 
 You can pick the packages you wish to install by simply adding them to the vars list in the homebrew-packages playbook located in the playbooks directory. Homebrew is installed by the playbook if it's missing locally, but if it exists locally, we update homebrew. The install script installs pip and Ansible so that we're able to run the playbook. 
 
-## To Run the installer
+## Running the installer
+
+To execute the installer, you simply run this script. Be sure to give the script the appropriate permissions to execute before doing so and preferably run with sudo.
+
 ```
 ./install.sh
 ```

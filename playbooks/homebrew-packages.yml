@@ -1,96 +1,30 @@
 - hosts: local
   name: Install OSX Homebrew Packages
   become: false
-  vars:
-    homebrew_packages:
-    - git
-    - git-lfs
-    - node
-    - docker-compose
-    - kubernetes-cli
-    - jq
-    - awscli
-    - wget
-    - yarn
-    - libyaml
-    - tree
-    - nvm
-    - terraform
-    - certbot
-    - kubernetes-helm
-    - openssh
-
-    homebrew_taps:
-    - homebrew/core
-    - homebrew/cask
-
-    homebrew_cask_appdir: /Applications
-    homebrew_cask_packages:
-    - docker
-    - postman
-    - spotify
-    - visual-studio-code
-    - google-chat
-    - notion
-    - asana
-    - dbeaver-community
-    - slack
-    - miro
-    - discord
-    - tunnelblick
-    - istat-menus
-    - vmware-fusion
-    - iterm2
-    - github
-    - firefox
-    - drawio
-    - google-chrome
-
-    install_homebrew_if_missing: true
-    upgrade_homebrew_packages: true
 
   # These are the tasks we want to perform before we install any of our packages...
   pre_tasks:
-    - name: Ensuring Homebrew Is Installed
-      stat:
-        path: "/opt/homebrew/bin/brew"
-      register: "homebrew_check"
+  - name: Ensuring Homebrew Is Installed
+    stat:
+      path: "/opt/homebrew/bin/brew"
+    register: "homebrew_check"
 
-    - name: Fail If Homebrew Is Not Installed and install_homebrew_if_missing Is False
-      fail:
-        msg: "Homebrew is missing...Install from http://brew.sh/"
-      when: >
-            not homebrew_check.stat.exists and
-            not install_homebrew_if_missing
+  - name: Fail If Homebrew Is Not Installed and install_homebrew_if_missing Is False
+    fail:
+      msg: "Homebrew is missing...Install from http://brew.sh/"
+    when: >
+          not homebrew_check.stat.exists and
+          not install_homebrew_if_missing
 
-    - name: Installing Homebrew
-      shell: |
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/edermazariegos/.zprofile
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-        brew doctor
-        git -C $(brew --repo homebrew/core) checkout master
-      when: >
-            not homebrew_check.stat.exists and
-            install_homebrew_if_missing
-
-  # These are the tasks we will perform for the installation 
-  tasks:
-    - name: Updating Homebrew
-      shell: brew update
-      when: homebrew_check.stat.exists
-
-    - name: Installing Homebrew Packages
-      homebrew:
-        name: "{{ item }}"
-        state: "present"
-        upgrade_all: "{{ upgrade_homebrew_packages }}"
-      with_items: '{{ homebrew_packages }}'
-      when: homebrew_check.stat.exists
-
-    - name: Installing Homebrew Cask Packages
-      homebrew_cask:
-        name: "{{ item }}"
-        state: "present"
-      with_items: '{{ homebrew_cask_packages }}'
-      when: homebrew_check.stat.exists
+  - name: Installing Homebrew
+    shell: |
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/edermazariegos/.zprofile
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+      brew doctor
+      git -C $(brew --repo homebrew/core) checkout master
+    when: >
+          not homebrew_check.stat.exists and
+          install_homebrew_if_missing
+  roles:
+  - mac-setup

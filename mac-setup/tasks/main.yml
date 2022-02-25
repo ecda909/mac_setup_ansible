@@ -1,0 +1,20 @@
+---
+# tasks file for mac-setup
+- name: Updating Homebrew
+  shell: brew update
+  when: homebrew_check.stat.exists
+
+- name: Installing Homebrew Packages
+  homebrew:
+    name: "{{ item }}"
+    state: "present"
+    upgrade_all: "{{ upgrade_homebrew_packages }}"
+  with_items: '{{ homebrew_packages }}'
+  when: homebrew_check.stat.exists
+
+- name: Installing Homebrew Cask Packages
+  homebrew_cask:
+    name: "{{ item }}"
+    state: "present"
+  with_items: '{{ homebrew_cask_packages }}'
+  when: homebrew_check.stat.exists

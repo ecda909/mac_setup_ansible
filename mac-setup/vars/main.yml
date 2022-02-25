@@ -1,0 +1,48 @@
+---
+# vars file for mac-setup
+homebrew_packages:
+#- git
+#- git-lfs
+#- node
+#- docker-compose
+#- kubernetes-cli
+#- jq
+#- awscli
+- wget
+#- yarn
+#- libyaml
+#- tree
+#- nvm
+#- terraform
+#- certbot
+#- kubernetes-helm
+#- openssh
+
+homebrew_taps:
+- homebrew/core
+- homebrew/cask
+
+homebrew_cask_appdir: /Applications
+homebrew_cask_packages:
+#- docker
+#- postman
+#- spotify
+#- visual-studio-code
+#- google-chat
+#- notion
+#- asana
+#- dbeaver-community
+#- slack
+#- miro
+#- discord
+#- tunnelblick
+#- istat-menus
+#- vmware-fusion
+#- iterm2
+#- github
+#- firefox
+#- drawio
+#- google-chrome
+
+install_homebrew_if_missing: true
+upgrade_homebrew_packages: true
